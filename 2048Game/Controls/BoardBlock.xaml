@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="_2048Game.BoardBlock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:_2048Game"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid Background="#FFCDC1B4" Margin="10,10,10,10">
+        <TextBlock x:Name="BlockValue" HorizontalAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=Text}" VerticalAlignment="Center" Foreground="White" FontSize="45" FontFamily="Arial" FontWeight="Bold"></TextBlock>
+    </Grid>
+</UserControl>

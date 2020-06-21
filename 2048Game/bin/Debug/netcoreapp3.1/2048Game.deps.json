@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "2048Game/1.0.0": {
+        "dependencies": {
+          "2048GameLib": "1.0.0"
+        },
+        "runtime": {
+          "2048Game.dll": {}
+        }
+      },
+      "2048GameLib/1.0.0": {
+        "runtime": {
+          "2048GameLib.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "2048Game/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "2048GameLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
