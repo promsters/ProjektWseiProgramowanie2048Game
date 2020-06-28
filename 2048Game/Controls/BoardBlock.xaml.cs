@@ -15,12 +15,19 @@ namespace _2048Game
 {
     public partial class BoardBlock : UserControl
     {
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(BoardBlock));
+        public static readonly DependencyProperty BlockColorProperty = DependencyProperty.Register("BlockColor", typeof(string), typeof(BoardBlock));
+        public static readonly DependencyProperty BlockValueProperty = DependencyProperty.Register("BlockValue", typeof(string), typeof(BoardBlock));
 
-        public string Text
+        public string BlockColor
         {
-            get { return GetValue(TextProperty) as string; }
-            set { SetValue(TextProperty, value); }
+            get { return GetValue(BlockColorProperty) as string; }
+            set { SetValue(BlockColorProperty, value); }
+        }
+
+        public string BlockValue
+        {
+            get { return GetValue(BlockValueProperty) as string; }
+            set { SetValue(BlockValueProperty, value); }
         }
 
         public BoardBlock()

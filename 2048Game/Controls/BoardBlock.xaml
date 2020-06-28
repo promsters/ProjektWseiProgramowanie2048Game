@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:_2048Game"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-    <Grid Background="#FFCDC1B4" Margin="10,10,10,10">
-        <TextBlock x:Name="BlockValue" HorizontalAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=Text}" VerticalAlignment="Center" Foreground="White" FontSize="45" FontFamily="Arial" FontWeight="Bold"></TextBlock>
+    
+    <Grid>
+        <Border BorderBrush="#FFCDC1B4" CornerRadius="8,8,8,8" BorderThickness="1" Padding="0" Margin="10,10,10,10" Background="#FFCDC1B4"></Border>
+        <Border BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockColor}" CornerRadius="8,8,8,8" BorderThickness="1" Padding="0" Margin="10,10,10,10" Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockColor}"></Border>
+        <TextBlock HorizontalAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockValue}" VerticalAlignment="Center" Foreground="White" FontSize="45" FontFamily="Arial" FontWeight="Bold"></TextBlock>
     </Grid>
+    
 </UserControl>

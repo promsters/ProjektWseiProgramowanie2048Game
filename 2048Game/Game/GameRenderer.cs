@@ -28,7 +28,7 @@ namespace _2048Game
 
                 GameGrid.Children.Add(block);
 
-                block.Text = "8";
+                block.BlockValue = "8";
 
                 Grid.SetColumn(block, kv.Key.Y);
                 Grid.SetRow(block, kv.Key.X);
