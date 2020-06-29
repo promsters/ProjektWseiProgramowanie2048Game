@@ -10,6 +10,12 @@ namespace _2048GameLib.Model
 {
     public class Block
     {
+        public Block(int value, Color color)
+        {
+            this.Value = value;
+            this.Color = color;
+        }
+
         public int Value { get; private set; }
         public Color Color { get; private set; }
     }

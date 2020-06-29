@@ -1,6 +1,7 @@
 ﻿using _2048GameLib.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Controls;
@@ -17,21 +18,46 @@ namespace _2048Game
             GameGrid = grid;
             GameBoard = board;
 
+            GameBoard.BoardSlotChanged += OnBoardSlotChanged;
+
             Init();
         }
 
         private void Init()
         {
-            foreach(KeyValuePair<Point, BoardSlot> kv in GameBoard.Slots)
+            GameGrid.Children.Capacity = GameBoard.Size * GameBoard.Size;
+
+            foreach (KeyValuePair<Point, BoardSlot> kv in GameBoard.Slots)
             {
                 BoardBlock block = new BoardBlock();
 
                 GameGrid.Children.Add(block);
 
-                block.BlockValue = "8";
+                Grid.SetColumn(block, kv.Key.X);
+                Grid.SetRow(block, kv.Key.Y);
+            }
+        }
 
-                Grid.SetColumn(block, kv.Key.Y);
-                Grid.SetRow(block, kv.Key.X);
+        private BoardBlock GetBoardBlock(Point point)
+        {
+            return (BoardBlock)GameGrid.Children[(point.Y * GameBoard.Size) + point.X];
+        }
+
+        public void OnBoardSlotChanged(object sender, BoardSlotChangedEventArgs e)
+        {
+            BoardBlock bBlock = GetBoardBlock(e.Position);
+            
+            if( e.Slot.IsEmpty() )
+            {
+                bBlock.BlockColor = "";
+                bBlock.BlockValue = "";
+            }
+            else
+            {
+                Block block = e.Slot.GetBlock();
+
+                bBlock.BlockColor = ColorTranslator.ToHtml(block.Color);
+                bBlock.BlockValue = block.Value.ToString();
             }
         }
     }
