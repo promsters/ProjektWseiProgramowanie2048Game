@@ -21,7 +21,12 @@ namespace _2048Game
         public string BlockColor
         {
             get { return GetValue(BlockColorProperty) as string; }
-            set { SetValue(BlockColorProperty, value); }
+            set 
+            {
+                if (value.Length == 0)
+                    value = "#00FFFFFF";
+                SetValue(BlockColorProperty, value);
+            }
         }
 
         public string BlockValue
