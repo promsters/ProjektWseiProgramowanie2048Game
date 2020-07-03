@@ -56,7 +56,8 @@ namespace _2048Game
             {
                 Block block = e.Slot.GetBlock();
 
-                bBlock.BlockColor = ColorTranslator.ToHtml(block.Color);
+                bBlock.BlockColor = ColorTranslator.ToHtml(block.BackgroundColor);
+                bBlock.BlockTextColor = ColorTranslator.ToHtml(block.Color);
                 bBlock.BlockValue = block.Value.ToString();
             }
         }

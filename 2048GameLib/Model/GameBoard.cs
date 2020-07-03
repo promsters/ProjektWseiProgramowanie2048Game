@@ -49,18 +49,35 @@ namespace _2048GameLib.Model
 
         private void SpawnBlockRandomly(int value)
         {
-            Point p;
-            do
-            {
-                p = new Point(Random.Next(0, Size - 1), Random.Next(0, Size - 1));
-            } while (!Slots[p].IsEmpty());
+            if (!IsAnyEmptySlot())
+                return;
 
-            SpawnBlock(value, p);
+            List<BoardSlot> emptySlots = GetEmptySlots();
+
+            SpawnBlock(value, emptySlots[Random.Next(0, emptySlots.Count-1)].GetPosition());
+        }
+
+        private bool IsAnyEmptySlot()
+        {
+            return GetEmptySlots().Count > 0;
+        }
+
+        private List<BoardSlot> GetEmptySlots()
+        {
+            List<BoardSlot> emptySlots = new List<BoardSlot>();
+
+            foreach(KeyValuePair<Point, BoardSlot> kv in Slots)
+            {
+                if (kv.Value.IsEmpty())
+                    emptySlots.Add(kv.Value);
+            }
+
+            return emptySlots;
         }
 
         private void SpawnBlock(int value, Point point)
         {
-            Slots[point].PutBlock(new Block(value, ColorTranslator.FromHtml("#eee4da")));
+            Slots[point].PutBlock(new Block(value));
             OnBoardSlotChanged(new BoardSlotChangedEventArgs() { Position = point, Slot = Slots[point] });
         }
 
@@ -75,6 +92,11 @@ namespace _2048GameLib.Model
 
         public void MergeBlocks(Direction direction)
         {
+            // TODO: Refactor this, game end should be checked after merging and if there is no room we should end the game
+            if (!IsAnyEmptySlot())
+                return;
+
+            List<Point> alreadyMerged = new List<Point>();
             for (int y = direction == Direction.Bottom ? Size - 1 : 0; direction == Direction.Bottom ? y >= 0 : y < Size; y += (direction == Direction.Bottom ? -1 : 1))
             {
                 for (int x = direction == Direction.Right ? Size-1 : 0; direction == Direction.Right ? x >= 0 : x < Size; x += (direction == Direction.Right ? -1 : 1))
@@ -89,15 +111,17 @@ namespace _2048GameLib.Model
                     Point nextPos = GetNextPosition(newPos, vector);
                     bool merged = false;
 
-                    if( nextPos != newPos && !Slots[nextPos].IsEmpty() )
+                    if( nextPos != newPos && !Slots[nextPos].IsEmpty() && !alreadyMerged.Contains(nextPos) )
                     {
                         // check if we can merge
                         Debug.WriteLine("Should check if can be merged");
 
                         if (Slots[p].GetBlock().Value == Slots[nextPos].GetBlock().Value)
                         {
-                            Slots[nextPos].PutBlock(new Block(Slots[p].GetBlock().Value * 2, Slots[p].GetBlock().Color));
+                            Slots[nextPos].PutBlock(new Block(Slots[p].GetBlock().Value * 2));
                             Slots[p].RemoveBlock();
+
+                            alreadyMerged.Add(nextPos);
 
                             merged = true;
 
@@ -124,6 +148,7 @@ namespace _2048GameLib.Model
             {
                 previous = currentPos;
                 currentPos = new Point(currentPos.X + (int)vector.X, currentPos.Y + (int)vector.Y);
+                Debug.WriteLine("TEST");
             } while (IsPointWithinBoundary(currentPos) && Slots[currentPos].IsEmpty());
 
             return previous;

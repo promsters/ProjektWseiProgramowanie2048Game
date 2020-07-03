@@ -16,6 +16,7 @@ namespace _2048Game
     public partial class BoardBlock : UserControl
     {
         public static readonly DependencyProperty BlockColorProperty = DependencyProperty.Register("BlockColor", typeof(string), typeof(BoardBlock));
+        public static readonly DependencyProperty BlockTextColorProperty = DependencyProperty.Register("BlockTextColor", typeof(string), typeof(BoardBlock));
         public static readonly DependencyProperty BlockValueProperty = DependencyProperty.Register("BlockValue", typeof(string), typeof(BoardBlock));
 
         public string BlockColor
@@ -33,6 +34,17 @@ namespace _2048Game
         {
             get { return GetValue(BlockValueProperty) as string; }
             set { SetValue(BlockValueProperty, value); }
+        }
+
+        public string BlockTextColor
+        {
+            get { return GetValue(BlockTextColorProperty) as string; }
+            set
+            {
+                if (value.Length == 0)
+                    value = "#00FFFFFF";
+                SetValue(BlockTextColorProperty, value);
+            }
         }
 
         public BoardBlock()
