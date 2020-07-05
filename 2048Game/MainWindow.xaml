@@ -5,20 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_2048Game"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600" KeyDown="Window_KeyDown">
-    <Grid Name="GamePanel" Background="#FFBBADA0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
+        Title="2048" Height="700" Width="600" KeyDown="Window_KeyDown" Background="#FFFAF8EF" Icon="/favicon.ico">
+    <Grid Margin="40,40,40,40">
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontSize="66" FontWeight="Bold" Foreground="#FF776E65" Margin="0,20,0,0">2048</TextBlock>
+                <StackPanel Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="#bbada0" CornerRadius="4,4,4,4" BorderThickness="1" Background="#bbada0" Padding="0,0,0,0" Margin="0,0,5,0">
+                            <StackPanel Margin="0,0,0,0">
+                                <TextBlock Foreground="#eee4da" HorizontalAlignment="Center" FontWeight="Bold" Padding="0,10,0,0" Margin="0,0,0,0">SCORE</TextBlock>
+                                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold">1536</TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" BorderBrush="#bbada0" CornerRadius="4,4,4,4" BorderThickness="1" Background="#bbada0" Padding="0,0,0,0" Margin="5,0,0,0">
+                            <StackPanel Margin="0,0,0,0">
+                                <TextBlock Foreground="#eee4da" HorizontalAlignment="Center" FontWeight="Bold" Padding="0,10,0,0" Margin="0,0,0,0">BEST</TextBlock>
+                                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold">5879</TextBlock>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.ColumnSpan="2" Grid.Row="1" BorderBrush="#8f7a66" CornerRadius="4,4,4,4" BorderThickness="1" Background="#8f7a66" Width="150" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,30,0,0" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                            <TextBlock Foreground="White" FontWeight="Bold" FontSize="16" Cursor="Hand" HorizontalAlignment="Center">Nowa gra</TextBlock>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Border BorderBrush="#FFBBADA0" CornerRadius="4,4,4,4" BorderThickness="1" Padding="0" Margin="10,10,10,10" Background="#FFBBADA0"></Border>
+            <Grid Name="GamePanel" Margin="20,20,20,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                </Grid.RowDefinitions>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

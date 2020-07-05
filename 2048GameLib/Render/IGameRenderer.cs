@@ -12,5 +12,6 @@ namespace _2048GameLib.Render
     {
         void Init(int size, Dictionary<Point, BoardSlot> slots);
         void UpdateBoardSlot(BoardSlot boardSlot);
+        void RenderGameEnded();
     }
 }

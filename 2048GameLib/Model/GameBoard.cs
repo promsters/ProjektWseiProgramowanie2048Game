@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 
 namespace _2048GameLib.Model
@@ -23,6 +24,12 @@ namespace _2048GameLib.Model
             Slots = new Dictionary<Point, BoardSlot>();
             Random = new Random();
 
+            InitializeBoard();
+        }
+
+        public void Clear()
+        {
+            Slots.Clear();
             InitializeBoard();
         }
 
@@ -48,7 +55,7 @@ namespace _2048GameLib.Model
             SpawnBlock(value, emptySlots[Random.Next(0, emptySlots.Count-1)].GetPosition());
         }
 
-        private bool IsAnyEmptySlot()
+        public bool IsAnyEmptySlot()
         {
             return GetEmptySlots().Count > 0;
         }
@@ -66,13 +73,18 @@ namespace _2048GameLib.Model
             return emptySlots;
         }
 
-        private void SpawnBlock(int value, Point point)
+        public void SpawnBlock(int value, Point point)
         {
-            Slots[point].PutBlock(new Block(value));
+            SpawnBlock(point, new Block(value));
+        }
+
+        public void SpawnBlock(Point point, Block block)
+        {
+            Slots[point].PutBlock(block);
             OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(Slots[point]));
         }
 
-        private void MoveBlock(BoardSlot from, BoardSlot to)
+        public void MoveBlock(BoardSlot from, BoardSlot to)
         {
             to.PutBlock(from.GetBlock());
             from.PutBlock(null);
@@ -81,63 +93,34 @@ namespace _2048GameLib.Model
             OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(to));
         }
 
-        public void MoveBlocks(Direction direction)
+        public void RemoveBlock(BoardSlot slot)
         {
-            // TODO: Refactor this, game end should be checked after merging and if there is no room we should end the game
-            if (!IsAnyEmptySlot())
-                return;
+            slot.RemoveBlock();
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(slot));
+        }
 
-            List<Point> alreadyMerged = new List<Point>();
-            for (int y = direction == Direction.Bottom ? Size - 1 : 0; direction == Direction.Bottom ? y >= 0 : y < Size; y += (direction == Direction.Bottom ? -1 : 1))
+        public void TraverseSlots(Direction direction, Action<Point> action)
+        {
+            foreach (int y in GetTraversableCoords(direction))
             {
-                for (int x = direction == Direction.Right ? Size-1 : 0; direction == Direction.Right ? x >= 0 : x < Size; x += (direction == Direction.Right ? -1 : 1))
+                foreach (int x in GetTraversableCoords(direction))
                 {
-                    Point p = new Point(x, y);
-
-                    if (Slots[p].IsEmpty())
-                        continue;
-
-                    Vector2 vector = GetDirectionVector(direction);
-                    Point newPos = FindFarthestPosition(p, vector);
-                    Point nextPos = GetNextPosition(newPos, vector);
-                    bool wasMerged = false;
-
-                    if( nextPos != newPos && !Slots[nextPos].IsEmpty() && !alreadyMerged.Contains(nextPos) )
-                    {
-                        wasMerged = MergeBlocks(Slots[p], Slots[nextPos]);
-
-                        if (wasMerged)
-                            alreadyMerged.Add(nextPos);
-                    }
-                    
-                    if (!wasMerged && p != newPos)
-                    {
-                        MoveBlock(Slots[p], Slots[newPos]);
-                    }
+                    action(new Point(x, y));
                 }
             }
-
-            SpawnBlockRandomly(2);
         }
 
-        private bool MergeBlocks(BoardSlot from, BoardSlot to)
+        private List<int> GetTraversableCoords(Direction direction)
         {
-            // Check if can be merged
-            if (from.GetBlock().Value == to.GetBlock().Value)
-            {
-                to.PutBlock(new Block(from.GetBlock().Value * 2));
-                from.RemoveBlock();
+            List<int> coords = new List<int>(Enumerable.Range(0, Size));
 
-                OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(from));
-                OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(to));
+            if (direction == Direction.Bottom || direction == Direction.Right)
+                coords.Reverse();
 
-                return true;
-            }
-
-            return false;
+            return coords;
         }
 
-        private Point FindFarthestPosition(Point currentPos, Vector2 vector)
+        public Point FindFarthestPosition(Point currentPos, Vector2 vector)
         {
             Point previous;
 
@@ -150,7 +133,7 @@ namespace _2048GameLib.Model
             return previous;
         }
 
-        private Point GetNextPosition(Point currentPosition, Vector2 vector)
+        public Point GetNextPosition(Point currentPosition, Vector2 vector)
         {
             Point nextPosition = new Point(currentPosition.X + (int)vector.X, currentPosition.Y + (int)vector.Y);
 
@@ -165,7 +148,7 @@ namespace _2048GameLib.Model
             return point.X >= 0 && point.X <= this.Size - 1 && point.Y >= 0 && point.Y <= this.Size - 1;
         }
 
-        private Vector2 GetDirectionVector(Direction direction)
+        public Vector2 GetDirectionVector(Direction direction)
         {
             if (direction == Direction.Left)
                 return new Vector2(-1, 0);

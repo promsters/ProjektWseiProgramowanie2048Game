@@ -2,6 +2,8 @@
 using _2048GameLib.Render;
 using System.Collections.Generic;
 using System.Drawing;
+using Position = System.Drawing.Point;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace _2048Game
@@ -16,12 +18,17 @@ namespace _2048Game
             GameGrid = grid;
         }
 
-        public void Init(int size, Dictionary<Point, BoardSlot> slots)
+        public void Init(int size, Dictionary<Position, BoardSlot> slots)
         {
+            if (GameGrid.Children.Count > 0)
+            {
+                GameGrid.Children.Clear();
+            }
+
             Size = size;
             GameGrid.Children.Capacity = size * size;
 
-            foreach (KeyValuePair<Point, BoardSlot> kv in slots)
+            foreach (KeyValuePair<Position, BoardSlot> kv in slots)
             {
                 BoardBlock block = new BoardBlock();
 
@@ -32,7 +39,7 @@ namespace _2048Game
             }
         }
 
-        private BoardBlock GetBoardBlock(Point point)
+        private BoardBlock GetBoardBlock(Position point)
         {
             return (BoardBlock)GameGrid.Children[(point.Y * Size) + point.X];
         }
@@ -54,6 +61,11 @@ namespace _2048Game
                 bBlock.BlockTextColor = ColorTranslator.ToHtml(block.Color);
                 bBlock.BlockValue = block.Value.ToString();
             }
+        }
+
+        public void RenderGameEnded()
+        {
+            MessageBox.Show("Game over!");
         }
     }
 }

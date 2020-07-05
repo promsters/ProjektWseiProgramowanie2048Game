@@ -24,5 +24,10 @@ namespace _2048Game
         {
             GameMngr.RegisterKeyPress(e.Key);
         }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            GameMngr.Restart();
+        }
     }
 }

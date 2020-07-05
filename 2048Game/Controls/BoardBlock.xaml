@@ -8,8 +8,8 @@
              d:DesignHeight="80" d:DesignWidth="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     
     <Grid>
-        <Border BorderBrush="#FFCDC1B4" CornerRadius="8,8,8,8" BorderThickness="1" Padding="0" Margin="10,10,10,10" Background="#FFCDC1B4"></Border>
-        <Border BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockColor}" CornerRadius="8,8,8,8" BorderThickness="1" Padding="0" Margin="10,10,10,10" Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockColor}"></Border>
+        <Border BorderBrush="#FFCDC1B4" CornerRadius="4,4,4,4" BorderThickness="1" Padding="0" Margin="6,6,6,6" Background="#FFCDC1B4"></Border>
+        <Border BorderBrush="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockColor}" CornerRadius="4,4,4,4" BorderThickness="1" Padding="0" Margin="6,6,6,6" Background="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockColor}"></Border>
         <TextBlock HorizontalAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockValue}" VerticalAlignment="Center" Foreground="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BlockTextColor}" FontSize="45" FontFamily="Arial" FontWeight="Bold"></TextBlock>
     </Grid>
     
