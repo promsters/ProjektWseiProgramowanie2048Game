@@ -27,8 +27,8 @@
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <controls:Scoreboard x:Name="ScoreDisplayBoard"></controls:Scoreboard> 
-                        
+                        <controls:Scoreboard x:Name="ScoreDisplayBoard"></controls:Scoreboard>
+
                         <Border Grid.Row="1" BorderBrush="#8f7a66" CornerRadius="4,4,4,4" BorderThickness="1" Background="#8f7a66" Width="150" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,30,0,0" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                             <TextBlock Foreground="White" FontWeight="Bold" FontSize="16" Cursor="Hand" HorizontalAlignment="Center">Nowa gra</TextBlock>
                         </Border>
@@ -53,6 +53,12 @@
                     <RowDefinition Height="4*"></RowDefinition>
                 </Grid.RowDefinitions>
             </Grid>
+            <StackPanel Name="GameOverUi" Background="#BAEEE4DA" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Panel.ZIndex="10" Visibility="Hidden" Margin="0,0,0,0">
+                <TextBlock Text="Game over!" Panel.ZIndex="20" FontFamily="Bahnschrift" FontSize="60" FontWeight="Bold" Canvas.Left="-153" Canvas.Top="-72" Foreground="#FF776E65" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="0,120,0,0"/>
+                <Border BorderBrush="#8f7a66" CornerRadius="4,4,4,4" BorderThickness="1" Background="#8f7a66" Width="200" Margin="0,15,0,0" MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="40">
+                    <TextBlock Foreground="White" FontWeight="Bold" FontSize="16" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center">Spróbuj ponownie</TextBlock>
+                </Border>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

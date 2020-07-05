@@ -14,5 +14,6 @@ namespace _2048GameLib.Render
         void UpdateBoardSlot(BoardSlot boardSlot);
         void RenderGameEnded();
         void UpdateScoreboard(Scoreboard scoreboard);
+
     }
 }

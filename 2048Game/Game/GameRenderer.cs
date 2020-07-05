@@ -15,11 +15,13 @@ namespace _2048Game
         private int Size;
         private Grid GameGrid;
         private GuiScoreboard ScoreBoard;
+        private UIElement GameOverUi;
 
-        public GameRenderer(Grid grid, GuiScoreboard scoreboard)
+        public GameRenderer(Grid grid, GuiScoreboard scoreboard, UIElement gameOverUi)
         {
             GameGrid = grid;
             ScoreBoard = scoreboard;
+            GameOverUi = gameOverUi;
         }
 
         public void Init(int size, Dictionary<Position, BoardSlot> slots)
@@ -27,6 +29,7 @@ namespace _2048Game
             if (GameGrid.Children.Count > 0)
             {
                 GameGrid.Children.Clear();
+                GameOverUi.Visibility = Visibility.Hidden;
             }
 
             Size = size;
@@ -69,7 +72,7 @@ namespace _2048Game
 
         public void RenderGameEnded()
         {
-            MessageBox.Show("Game over!");
+            GameOverUi.Visibility = Visibility.Visible;
         }
 
         public void UpdateScoreboard(DomainScoreboard domainScoreboard)

@@ -16,7 +16,14 @@ namespace _2048Game
         {
             InitializeComponent();
 
-            GameMngr = new GameManager(new GameRenderer(GamePanel, ScoreDisplayBoard));
+            GameMngr = new GameManager(
+                new GameRenderer(
+                    GamePanel, 
+                    ScoreDisplayBoard, 
+                    GameOverUi
+                )
+            );
+
             GameMngr.Start();
         }
 
