@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 C:\Users\Tomek\source\repos\2048Game\2048Game\App.xaml
-2708062266
+31039483470
 
-7903768554
+8-1179301316
 193-1218260646
-Controls\BoardBlock.xaml;MainWindow.xaml;
+Controls\BoardBlock.xaml;Controls\Scoreboard.xaml;MainWindow.xaml;
 
 False
 

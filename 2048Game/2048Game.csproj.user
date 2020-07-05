@@ -10,9 +10,15 @@
     <Compile Update="Controls\BoardBlock.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\Scoreboard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\BoardBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Scoreboard.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

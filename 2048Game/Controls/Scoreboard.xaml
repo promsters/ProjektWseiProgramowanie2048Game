@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="_2048Game.Controls.Scoreboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:_2048Game.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="#bbada0" CornerRadius="4,4,4,4" BorderThickness="1" Background="#bbada0" Padding="0,0,0,0" Margin="0,0,5,0">
+            <StackPanel Margin="0,0,0,0">
+                <TextBlock Foreground="#eee4da" HorizontalAlignment="Center" FontWeight="Bold" Padding="0,10,0,0" Margin="0,0,0,0">SCORE</TextBlock>
+                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=Score}"></TextBlock>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" BorderBrush="#bbada0" CornerRadius="4,4,4,4" BorderThickness="1" Background="#bbada0" Padding="0,0,0,0" Margin="5,0,0,0">
+            <StackPanel Margin="0,0,0,0">
+                <TextBlock Foreground="#eee4da" HorizontalAlignment="Center" FontWeight="Bold" Padding="0,10,0,0" Margin="0,0,0,0">BEST</TextBlock>
+                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BestScore}"></TextBlock>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

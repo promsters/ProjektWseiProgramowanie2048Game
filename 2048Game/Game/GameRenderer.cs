@@ -5,17 +5,21 @@ using System.Drawing;
 using Position = System.Drawing.Point;
 using System.Windows;
 using System.Windows.Controls;
-
+using _2048Game.Controls;
+using DomainScoreboard = _2048GameLib.Model.Scoreboard;
+using GuiScoreboard = _2048Game.Controls.Scoreboard;
 namespace _2048Game
 {
     public class GameRenderer : IGameRenderer
     {
         private int Size;
         private Grid GameGrid;
+        private GuiScoreboard ScoreBoard;
 
-        public GameRenderer(Grid grid)
+        public GameRenderer(Grid grid, GuiScoreboard scoreboard)
         {
             GameGrid = grid;
+            ScoreBoard = scoreboard;
         }
 
         public void Init(int size, Dictionary<Position, BoardSlot> slots)
@@ -66,6 +70,12 @@ namespace _2048Game
         public void RenderGameEnded()
         {
             MessageBox.Show("Game over!");
+        }
+
+        public void UpdateScoreboard(DomainScoreboard domainScoreboard)
+        {
+            ScoreBoard.Score = domainScoreboard.Score.ToString();
+            ScoreBoard.BestScore = domainScoreboard.BestScore.ToString();
         }
     }
 }

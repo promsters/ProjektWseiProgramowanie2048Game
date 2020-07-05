@@ -1,5 +1,6 @@
 ﻿using _2048GameLib.Model;
 using _2048GameLib.Render;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
@@ -14,6 +15,8 @@ namespace _2048GameLib
         private IGameRenderer Renderer;
 
         private GameState _state;
+        private Scoreboard Score;
+
         public GameState State 
         { 
             get { return _state; }
@@ -34,7 +37,11 @@ namespace _2048GameLib
             Renderer = renderer;
             Renderer.Init(Board.Size, Board.Slots);
 
+            Score = new Scoreboard();
+            Score.ScoreChanged += OnScoreChanged;
+
             State = GameState.IN_PROGRESS;
+            
         }
 
         public void Start()
@@ -46,6 +53,7 @@ namespace _2048GameLib
         public void Restart()
         {
             Board.Clear();
+            Score.ResetScore();
             Renderer.Init(Board.Size, Board.Slots);
             Start();
         }
@@ -90,8 +98,11 @@ namespace _2048GameLib
         {
             if (from.GetBlock().Value == to.GetBlock().Value)
             {
-                Board.SpawnBlock(to.GetPosition(), new Block(from.GetBlock().Value * 2));
+                int newValue = from.GetBlock().Value * 2;
+                Board.SpawnBlock(to.GetPosition(), new Block(newValue));
                 Board.RemoveBlock(from);
+
+                Score.Add(newValue);
 
                 return true;
             }
@@ -128,6 +139,11 @@ namespace _2048GameLib
         {
             if (newState == GameState.ENDED && oldState == GameState.IN_PROGRESS)
                 Renderer.RenderGameEnded();
+        }
+
+        private void OnScoreChanged(object sender, EventArgs e)
+        {
+            Renderer.UpdateScoreboard(Score);
         }
     }
 

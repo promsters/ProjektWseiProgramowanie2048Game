@@ -22,3 +22,6 @@ C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\2048Game.p
 C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\2048Game.genruntimeconfig.cache
 C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\Controls\BoardBlock.g.cs
 C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\Controls\BoardBlock.baml
+C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\Controls\Scoreboard.g.cs
+C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\Controls\Scoreboard.baml
