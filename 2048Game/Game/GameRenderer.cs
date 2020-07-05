@@ -1,33 +1,27 @@
 ﻿using _2048GameLib.Model;
-using System;
+using _2048GameLib.Render;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Text;
 using System.Windows.Controls;
 
 namespace _2048Game
 {
-    public class GameRenderer
+    public class GameRenderer : IGameRenderer
     {
+        private int Size;
         private Grid GameGrid;
-        private GameBoard GameBoard;
 
-        public GameRenderer(Grid grid, GameBoard board)
+        public GameRenderer(Grid grid)
         {
             GameGrid = grid;
-            GameBoard = board;
-
-            GameBoard.BoardSlotChanged += OnBoardSlotChanged;
-
-            Init();
         }
 
-        private void Init()
+        public void Init(int size, Dictionary<Point, BoardSlot> slots)
         {
-            GameGrid.Children.Capacity = GameBoard.Size * GameBoard.Size;
+            Size = size;
+            GameGrid.Children.Capacity = size * size;
 
-            foreach (KeyValuePair<Point, BoardSlot> kv in GameBoard.Slots)
+            foreach (KeyValuePair<Point, BoardSlot> kv in slots)
             {
                 BoardBlock block = new BoardBlock();
 
@@ -40,21 +34,21 @@ namespace _2048Game
 
         private BoardBlock GetBoardBlock(Point point)
         {
-            return (BoardBlock)GameGrid.Children[(point.Y * GameBoard.Size) + point.X];
+            return (BoardBlock)GameGrid.Children[(point.Y * Size) + point.X];
         }
 
-        public void OnBoardSlotChanged(object sender, BoardSlotChangedEventArgs e)
+        public void UpdateBoardSlot(BoardSlot boardSlot)
         {
-            BoardBlock bBlock = GetBoardBlock(e.Position);
-            
-            if( e.Slot.IsEmpty() )
+            BoardBlock bBlock = GetBoardBlock(boardSlot.GetPosition());
+
+            if (boardSlot.IsEmpty())
             {
                 bBlock.BlockColor = "";
                 bBlock.BlockValue = "";
             }
             else
             {
-                Block block = e.Slot.GetBlock();
+                Block block = boardSlot.GetBlock();
 
                 bBlock.BlockColor = ColorTranslator.ToHtml(block.BackgroundColor);
                 bBlock.BlockTextColor = ColorTranslator.ToHtml(block.Color);

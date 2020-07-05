@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _2048GameLib.Model
 {
@@ -41,13 +38,7 @@ namespace _2048GameLib.Model
             }
         }
 
-        public void StartRound()
-        {
-            SpawnBlockRandomly(2);
-            SpawnBlockRandomly(2);
-        }
-
-        private void SpawnBlockRandomly(int value)
+        public void SpawnBlockRandomly(int value)
         {
             if (!IsAnyEmptySlot())
                 return;
@@ -78,7 +69,7 @@ namespace _2048GameLib.Model
         private void SpawnBlock(int value, Point point)
         {
             Slots[point].PutBlock(new Block(value));
-            OnBoardSlotChanged(new BoardSlotChangedEventArgs() { Position = point, Slot = Slots[point] });
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(Slots[point]));
         }
 
         private void MoveBlock(BoardSlot from, BoardSlot to)
@@ -86,11 +77,11 @@ namespace _2048GameLib.Model
             to.PutBlock(from.GetBlock());
             from.PutBlock(null);
 
-            OnBoardSlotChanged(new BoardSlotChangedEventArgs() { Position = from.GetPosition(), Slot = from });
-            OnBoardSlotChanged(new BoardSlotChangedEventArgs() { Position = to.GetPosition(), Slot = to });
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(from));
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(to));
         }
 
-        public void MergeBlocks(Direction direction)
+        public void MoveBlocks(Direction direction)
         {
             // TODO: Refactor this, game end should be checked after merging and if there is no room we should end the game
             if (!IsAnyEmptySlot())
@@ -109,28 +100,17 @@ namespace _2048GameLib.Model
                     Vector2 vector = GetDirectionVector(direction);
                     Point newPos = FindFarthestPosition(p, vector);
                     Point nextPos = GetNextPosition(newPos, vector);
-                    bool merged = false;
+                    bool wasMerged = false;
 
                     if( nextPos != newPos && !Slots[nextPos].IsEmpty() && !alreadyMerged.Contains(nextPos) )
                     {
-                        // check if we can merge
-                        Debug.WriteLine("Should check if can be merged");
+                        wasMerged = MergeBlocks(Slots[p], Slots[nextPos]);
 
-                        if (Slots[p].GetBlock().Value == Slots[nextPos].GetBlock().Value)
-                        {
-                            Slots[nextPos].PutBlock(new Block(Slots[p].GetBlock().Value * 2));
-                            Slots[p].RemoveBlock();
-
+                        if (wasMerged)
                             alreadyMerged.Add(nextPos);
-
-                            merged = true;
-
-                            OnBoardSlotChanged(new BoardSlotChangedEventArgs() { Position = p, Slot = Slots[p] });
-                            OnBoardSlotChanged(new BoardSlotChangedEventArgs() { Position = nextPos, Slot = Slots[nextPos] });
-                        }
                     }
                     
-                    if (!merged && p != newPos)
+                    if (!wasMerged && p != newPos)
                     {
                         MoveBlock(Slots[p], Slots[newPos]);
                     }
@@ -138,6 +118,23 @@ namespace _2048GameLib.Model
             }
 
             SpawnBlockRandomly(2);
+        }
+
+        private bool MergeBlocks(BoardSlot from, BoardSlot to)
+        {
+            // Check if can be merged
+            if (from.GetBlock().Value == to.GetBlock().Value)
+            {
+                to.PutBlock(new Block(from.GetBlock().Value * 2));
+                from.RemoveBlock();
+
+                OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(from));
+                OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(to));
+
+                return true;
+            }
+
+            return false;
         }
 
         private Point FindFarthestPosition(Point currentPos, Vector2 vector)
@@ -148,7 +145,6 @@ namespace _2048GameLib.Model
             {
                 previous = currentPos;
                 currentPos = new Point(currentPos.X + (int)vector.X, currentPos.Y + (int)vector.Y);
-                Debug.WriteLine("TEST");
             } while (IsPointWithinBoundary(currentPos) && Slots[currentPos].IsEmpty());
 
             return previous;
@@ -192,5 +188,10 @@ namespace _2048GameLib.Model
     {
         public Point Position { get; set; }
         public BoardSlot Slot { get; set; }
+
+        public static BoardSlotChangedEventArgs FromBoardSlot(BoardSlot slot)
+        {
+            return new BoardSlotChangedEventArgs() { Position = slot.GetPosition(), Slot = slot };
+        }
     }
 }
