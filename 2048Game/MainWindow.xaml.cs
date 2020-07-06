@@ -1,4 +1,5 @@
-﻿using _2048GameLib;
+﻿using _2048Game.Animation;
+using _2048GameLib;
 using _2048GameLib.Model;
 using System.Windows;
 using System.Windows.Input;

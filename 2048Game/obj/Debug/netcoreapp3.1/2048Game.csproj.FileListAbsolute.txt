@@ -25,3 +25,4 @@ C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\Controls\B
 C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\Controls\Scoreboard.g.cs
 C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
 C:\Users\Tomek\source\repos\2048Game\2048Game\obj\Debug\netcoreapp3.1\Controls\Scoreboard.baml
+C:\Users\Tomek\source\repos\2048Game\2048Game\bin\Debug\netcoreapp3.1\SciChart.Wpf.UI.Transitionz.dll

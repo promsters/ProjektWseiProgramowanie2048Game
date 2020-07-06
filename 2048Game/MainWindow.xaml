@@ -19,7 +19,15 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" FontSize="66" FontWeight="Bold" Foreground="#FF776E65" Margin="0,20,0,0">2048</TextBlock>
+                <TextBlock Grid.Column="0" FontSize="66" FontWeight="Bold" Foreground="#FF776E65" Margin="0,20,0,0" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1" ScaleY="1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>2048</TextBlock>
                 <StackPanel Grid.Column="1">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -53,7 +61,7 @@
                     <RowDefinition Height="4*"></RowDefinition>
                 </Grid.RowDefinitions>
             </Grid>
-            <StackPanel Name="GameOverUi" Background="#BAEEE4DA" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Panel.ZIndex="10" Visibility="Hidden" Margin="0,0,0,0">
+            <StackPanel Name="GameOverUi" Background="#BAEEE4DA" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Panel.ZIndex="10" Margin="0,0,0,0" Opacity="0" Visibility="Hidden">
                 <TextBlock Text="Game over!" Panel.ZIndex="20" FontFamily="Bahnschrift" FontSize="60" FontWeight="Bold" Canvas.Left="-153" Canvas.Top="-72" Foreground="#FF776E65" HorizontalAlignment="Center" VerticalAlignment="Stretch" Padding="0,120,0,0"/>
                 <Border BorderBrush="#8f7a66" CornerRadius="4,4,4,4" BorderThickness="1" Background="#8f7a66" Width="200" Margin="0,15,0,0" MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="40">
                     <TextBlock Foreground="White" FontWeight="Bold" FontSize="16" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center">Spróbuj ponownie</TextBlock>
@@ -62,3 +70,5 @@
         </Grid>
     </Grid>
 </Window>
+
+    

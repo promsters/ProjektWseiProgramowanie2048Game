@@ -51,6 +51,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "SciChart.Wpf.UI.Transitionz": {
+              "target": "Package",
+              "version": "[3.1.251, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

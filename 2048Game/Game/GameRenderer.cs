@@ -8,6 +8,9 @@ using System.Windows.Controls;
 using _2048Game.Controls;
 using DomainScoreboard = _2048GameLib.Model.Scoreboard;
 using GuiScoreboard = _2048Game.Controls.Scoreboard;
+using _2048Game.Animation;
+using System.Windows.Media;
+
 namespace _2048Game
 {
     public class GameRenderer : IGameRenderer
@@ -15,9 +18,9 @@ namespace _2048Game
         private int Size;
         private Grid GameGrid;
         private GuiScoreboard ScoreBoard;
-        private UIElement GameOverUi;
+        private FrameworkElement GameOverUi;
 
-        public GameRenderer(Grid grid, GuiScoreboard scoreboard, UIElement gameOverUi)
+        public GameRenderer(Grid grid, GuiScoreboard scoreboard, FrameworkElement gameOverUi)
         {
             GameGrid = grid;
             ScoreBoard = scoreboard;
@@ -29,7 +32,7 @@ namespace _2048Game
             if (GameGrid.Children.Count > 0)
             {
                 GameGrid.Children.Clear();
-                GameOverUi.Visibility = Visibility.Hidden;
+                FadeHelper.FadeOut(GameOverUi);
             }
 
             Size = size;
@@ -51,28 +54,35 @@ namespace _2048Game
             return (BoardBlock)GameGrid.Children[(point.Y * Size) + point.X];
         }
 
-        public void UpdateBoardSlot(BoardSlot boardSlot)
+        public void UpdateBoardSlot(BoardSlot boardSlot, BoardSlotChangeOrigin origin)
         {
             BoardBlock bBlock = GetBoardBlock(boardSlot.GetPosition());
 
             if (boardSlot.IsEmpty())
             {
                 bBlock.BlockColor = "";
+                bBlock.BlockTextColor = "";
                 bBlock.BlockValue = "";
             }
             else
             {
                 Block block = boardSlot.GetBlock();
 
+                if (origin == BoardSlotChangeOrigin.Spawned)
+                    ScaleHelper.ScaleIn(bBlock);
+                else if (origin == BoardSlotChangeOrigin.MergedInto)
+                    ScaleHelper.Pulse(bBlock);
+
                 bBlock.BlockColor = ColorTranslator.ToHtml(block.BackgroundColor);
                 bBlock.BlockTextColor = ColorTranslator.ToHtml(block.Color);
                 bBlock.BlockValue = block.Value.ToString();
+
             }
         }
 
         public void RenderGameEnded()
         {
-            GameOverUi.Visibility = Visibility.Visible;
+            FadeHelper.FadeIn(GameOverUi);
         }
 
         public void UpdateScoreboard(DomainScoreboard domainScoreboard)

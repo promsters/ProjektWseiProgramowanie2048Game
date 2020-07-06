@@ -11,9 +11,8 @@ namespace _2048GameLib.Render
     public interface IGameRenderer
     {
         void Init(int size, Dictionary<Point, BoardSlot> slots);
-        void UpdateBoardSlot(BoardSlot boardSlot);
+        void UpdateBoardSlot(BoardSlot boardSlot, BoardSlotChangeOrigin origin);
         void RenderGameEnded();
         void UpdateScoreboard(Scoreboard scoreboard);
-
     }
 }

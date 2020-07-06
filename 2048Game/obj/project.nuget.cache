@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "tUjE9uvyc+5HNwxvvtZ3UWWrA+ID6FUGGjhEK2zaDkJladqjFcd4U7LfWawWJM6k4r58tfBzShTw1Wvo5zNnQA==",
+  "dgSpecHash": "UJKJc6Q0EUaOTIrQchUmcSwOS8VZtTQoRLQ3D0JoulizZzkGBM0jeyefqlDlwSpsLTUn41B7jPPN+tFSwZ++WQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Tomek\\source\\repos\\2048Game\\2048Game\\2048Game.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Tomek\\.nuget\\packages\\scichart.wpf.ui.transitionz\\3.1.251\\scichart.wpf.ui.transitionz.3.1.251.nupkg.sha512"
+  ],
   "logs": []
 }

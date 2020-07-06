@@ -116,7 +116,7 @@ namespace _2048GameLib
                 if (!onlySimulate)
                 {
                     int newValue = from.GetBlock().Value * 2;
-                    Board.SpawnBlock(to.GetPosition(), new Block(newValue));
+                    Board.ReplaceBlock(to, new Block(newValue));
                     Board.RemoveBlock(from);
 
                     Score.Add(newValue);
@@ -183,7 +183,7 @@ namespace _2048GameLib
 
         private void OnBoardSlotChanged(object sender, BoardSlotChangedEventArgs e)
         {
-            Renderer.UpdateBoardSlot(e.Slot);
+            Renderer.UpdateBoardSlot(e.Slot, e.Origin);
         }
 
         private void OnGameStateChange(GameState oldState, GameState newState)

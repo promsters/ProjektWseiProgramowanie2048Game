@@ -81,7 +81,13 @@ namespace _2048GameLib.Model
         public void SpawnBlock(Point point, Block block)
         {
             Slots[point].PutBlock(block);
-            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(Slots[point]));
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(Slots[point], BoardSlotChangeOrigin.Spawned));
+        }
+
+        public void ReplaceBlock(BoardSlot boardSlot, Block block)
+        {
+            boardSlot.PutBlock(block);
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(boardSlot, BoardSlotChangeOrigin.MergedInto));
         }
 
         public void MoveBlock(BoardSlot from, BoardSlot to)
@@ -89,14 +95,14 @@ namespace _2048GameLib.Model
             to.PutBlock(from.GetBlock());
             from.PutBlock(null);
 
-            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(from));
-            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(to));
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(from, BoardSlotChangeOrigin.Moved));
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(to, BoardSlotChangeOrigin.Moved));
         }
 
         public void RemoveBlock(BoardSlot slot)
         {
             slot.RemoveBlock();
-            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(slot));
+            OnBoardSlotChanged(BoardSlotChangedEventArgs.FromBoardSlot(slot, BoardSlotChangeOrigin.MergedFrom));
         }
 
         public void TraverseSlots(Direction direction, Action<Point> action)
@@ -172,9 +178,19 @@ namespace _2048GameLib.Model
         public Point Position { get; set; }
         public BoardSlot Slot { get; set; }
 
-        public static BoardSlotChangedEventArgs FromBoardSlot(BoardSlot slot)
+        public BoardSlotChangeOrigin Origin { get; set; }
+
+        public static BoardSlotChangedEventArgs FromBoardSlot(BoardSlot slot, BoardSlotChangeOrigin origin)
         {
-            return new BoardSlotChangedEventArgs() { Position = slot.GetPosition(), Slot = slot };
+            return new BoardSlotChangedEventArgs() { Position = slot.GetPosition(), Slot = slot, Origin = origin };
         }
+    }
+
+    public enum BoardSlotChangeOrigin
+    {
+        Spawned = 0,
+        MergedInto,
+        MergedFrom,
+        Moved
     }
 }
