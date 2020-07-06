@@ -1,6 +1,0 @@
-C:\Users\Tomek\source\repos\2048Game\2048GameLib\bin\Debug\2048GameLib.dll
-C:\Users\Tomek\source\repos\2048Game\2048GameLib\bin\Debug\2048GameLib.pdb
-C:\Users\Tomek\source\repos\2048Game\2048GameLib\obj\Debug\2048GameLib.csprojAssemblyReference.cache
-C:\Users\Tomek\source\repos\2048Game\2048GameLib\obj\Debug\2048GameLib.csproj.CoreCompileInputs.cache
-C:\Users\Tomek\source\repos\2048Game\2048GameLib\obj\Debug\2048GameLib.dll
-C:\Users\Tomek\source\repos\2048Game\2048GameLib\obj\Debug\2048GameLib.pdb
